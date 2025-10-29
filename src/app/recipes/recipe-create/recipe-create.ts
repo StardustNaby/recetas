@@ -28,16 +28,7 @@ import { Auth } from '../../core/services/auth';
 })
 export class RecipeCreate {
   fotoPreview: string | undefined;
-
-  readonly form = this.formBuilder.nonNullable.group({
-    titulo: ['', [Validators.required]],
-    descripcion: ['', [Validators.required]],
-    tiempo_preparacion: [30, [Validators.required, Validators.min(1)]],
-    foto: [''],
-    ingredientes: this.formBuilder.array([
-      this.createIngredienteFormGroup()
-    ]),
-  });
+  readonly form;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -45,7 +36,17 @@ export class RecipeCreate {
     private readonly auth: Auth,
     private readonly router: Router,
     private readonly snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.form = this.formBuilder.nonNullable.group({
+      titulo: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
+      tiempo_preparacion: [30, [Validators.required, Validators.min(1)]],
+      foto: [''],
+      ingredientes: this.formBuilder.array([
+        this.createIngredienteFormGroup()
+      ]),
+    });
+  }
 
   get ingredientesArray(): FormArray {
     return this.form.get('ingredientes') as FormArray;

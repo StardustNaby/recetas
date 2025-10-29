@@ -34,10 +34,7 @@ export class PublicationDetail implements OnInit {
   votos: { upvotes: number; downvotes: number } = { upvotes: 0, downvotes: 0 };
   userVote: Voto | null = null;
   nuevoComentario = '';
-
-  readonly commentForm = this.formBuilder.nonNullable.group({
-    contenido: ['', [Validators.required]],
-  });
+  readonly commentForm;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -45,7 +42,11 @@ export class PublicationDetail implements OnInit {
     private readonly publicationsService: Publications,
     private readonly auth: Auth,
     private readonly formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.commentForm = this.formBuilder.nonNullable.group({
+      contenido: ['', [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

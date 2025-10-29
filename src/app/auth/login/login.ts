@@ -14,24 +14,26 @@ import { Auth } from '../../core/services/auth';
   styleUrl: './login.scss',
 })
 export class Login {
-  readonly form = this.formBuilder.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.pattern(/^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,}$/),
-      ],
-    ],
-  });
+  readonly form;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly auth: Auth,
     private readonly router: Router,
     private readonly snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.form = this.formBuilder.nonNullable.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.pattern(/^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,}$/),
+        ],
+      ],
+    });
+  }
 
   submit(): void {
     if (this.form.invalid) {

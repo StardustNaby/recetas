@@ -15,20 +15,7 @@ import { Auth } from '../../core/services/auth';
   styleUrl: './register.scss',
 })
 export class Register {
-
-  readonly form = this.formBuilder.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.pattern(/^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,}$/),
-      ],
-    ],
-    confirmPassword: ['', [Validators.required]],
-    nivel: ['novato', Validators.required],
-  }, { validators: this.passwordsMatch });
+  readonly form;
 
   private passwordsMatch = (group: any) => {
     const p = group.get('password')?.value;
@@ -41,7 +28,21 @@ export class Register {
     private readonly auth: Auth,
     private readonly router: Router,
     private readonly snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.form = this.formBuilder.nonNullable.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.pattern(/^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,}$/),
+        ],
+      ],
+      confirmPassword: ['', [Validators.required]],
+      nivel: ['novato', Validators.required],
+    }, { validators: this.passwordsMatch });
+  }
 
   submit(): void {
     if (this.form.invalid) {

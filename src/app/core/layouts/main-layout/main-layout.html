@@ -12,34 +12,41 @@
         <a mat-button routerLink="/favoritos" routerLinkActive="active">Favoritos</a>
       </nav>
 
-      <div class="user-menu">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <img
-            *ngIf="user?.foto_perfil; else defaultAvatar"
-            [src]="user?.foto_perfil"
-            [alt]="user?.nombre || 'Usuario'"
-            class="avatar"
-          />
-          <ng-template #defaultAvatar>
-            <mat-icon>account_circle</mat-icon>
-          </ng-template>
-        </button>
-        <mat-menu #menu="matMenu">
-          <div class="menu-header" *ngIf="user">
-            <p class="menu-user-name">{{ user.nombre || user.email }}</p>
-            <p class="menu-user-level">{{ user.nivel | titlecase }}</p>
-          </div>
-          <mat-divider></mat-divider>
-          <button mat-menu-item routerLink="/perfil/editar">
-            <mat-icon>edit</mat-icon>
-            <span>Editar Perfil</span>
-          </button>
-          <button mat-menu-item (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span>Cerrar Sesión</span>
-          </button>
-        </mat-menu>
+      <div class="auth-actions" *ngIf="!user; else userMenu">
+        <a mat-stroked-button color="primary" routerLink="/login">Iniciar sesión</a>
+        <a mat-flat-button color="primary" routerLink="/register">Crear cuenta</a>
       </div>
+
+      <ng-template #userMenu>
+        <div class="user-menu">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <img
+              *ngIf="user?.foto_perfil; else defaultAvatar"
+              [src]="user?.foto_perfil"
+              [alt]="user?.nombre || 'Usuario'"
+              class="avatar"
+            />
+            <ng-template #defaultAvatar>
+              <mat-icon>account_circle</mat-icon>
+            </ng-template>
+          </button>
+          <mat-menu #menu="matMenu">
+            <div class="menu-header">
+              <p class="menu-user-name">{{ user?.nombre || user?.email }}</p>
+              <p class="menu-user-level">{{ user?.nivel | titlecase }}</p>
+            </div>
+            <mat-divider></mat-divider>
+            <button mat-menu-item routerLink="/perfil/editar">
+              <mat-icon>edit</mat-icon>
+              <span>Editar Perfil</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              <span>Cerrar Sesión</span>
+            </button>
+          </mat-menu>
+        </div>
+      </ng-template>
     </div>
   </mat-toolbar>
 

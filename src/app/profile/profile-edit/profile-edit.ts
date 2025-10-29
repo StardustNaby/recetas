@@ -29,19 +29,20 @@ import { User } from '../../core/models/user.model';
 export class ProfileEdit implements OnInit {
   user: User | null = null;
   fotoPerfilPreview: string | undefined;
-
-  readonly form = this.formBuilder.nonNullable.group({
-    nombre: [''],
-    nivel: ['novato' as User['nivel'], Validators.required],
-    foto_perfil: [''],
-  });
+  readonly form;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly auth: Auth,
     private readonly router: Router,
     private readonly snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.form = this.formBuilder.nonNullable.group({
+      nombre: [''],
+      nivel: ['novato' as User['nivel'], Validators.required],
+      foto_perfil: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.user = this.auth.currentUser();

@@ -38,12 +38,7 @@ export class PublicationCreate implements OnInit {
   tipoPublicacion: 'receta_referenciada' | 'opinion' = 'opinion';
   recetas: Receta[] = [];
   fotos: string[] = []; // Array de base64 strings
-
-  readonly form = this.formBuilder.nonNullable.group({
-    titulo: [''],
-    contenido: ['', [Validators.required]],
-    id_receta_referenciada: [''],
-  });
+  readonly form;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -52,7 +47,13 @@ export class PublicationCreate implements OnInit {
     private readonly auth: Auth,
     private readonly router: Router,
     private readonly snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.form = this.formBuilder.nonNullable.group({
+      titulo: [''],
+      contenido: ['', [Validators.required]],
+      id_receta_referenciada: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.recetas = this.recipesService.getAll();

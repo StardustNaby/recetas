@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +9,7 @@ import { Publicacion } from '../../core/models/publicacion.model';
 
 @Component({
   selector: 'app-publication-list',
-  imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './publication-list.html',
   styleUrl: './publication-list.scss',
 })

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,7 @@ import { User } from '../../models/user.model';
   selector: 'app-main-layout',
   imports: [
     CommonModule,
+    NgIf,
     TitleCasePipe,
     RouterOutlet,
     RouterLink,

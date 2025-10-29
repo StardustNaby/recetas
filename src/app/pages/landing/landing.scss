@@ -3,24 +3,32 @@
   grid-template-columns: 1.2fr 0.8fr;
   align-items: stretch;
   gap: 2rem;
-  padding: 4rem 2rem;
+  padding: 6rem 2rem;
   background: #f6f1ea; /* crema neutro */
 
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
+    justify-content: center;
   }
 
   h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin: 0;
     letter-spacing: 0.5px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
 
   &__image {
     background: linear-gradient(135deg, #c8e3d4, #e8f3ec); /* verde neutro suave */
     border-radius: 12px;
+    min-height: 320px;
   }
 }
 

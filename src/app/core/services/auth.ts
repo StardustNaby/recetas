@@ -32,7 +32,7 @@ export class Auth {
 
   register(email: string, password: string, nivel: User['nivel'], fotoPerfil?: string): User {
     // Mock: en producción esto sería una llamada HTTP
-    const newUser: User = {
+    const newUser: User & { password: string } = {
       id_usuario: `user_${Date.now()}`,
       email,
       password, // Solo para almacenar localmente en mock
