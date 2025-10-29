@@ -1,0 +1,26 @@
+.banner {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background: #f6f1ea; /* crema neutro */
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+
+  &__image {
+    background: linear-gradient(135deg, #c8e3d4, #e8f3ec); /* verde neutro suave */
+    border-radius: 12px;
+  }
+}
+

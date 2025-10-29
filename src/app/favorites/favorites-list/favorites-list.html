@@ -1,0 +1,5 @@
+<h2>Favoritos</h2>
+<ul>
+  <li *ngFor="let id of items">Receta/Publicación ID: {{ id }}</li>
+  <li *ngIf="items.length === 0">Aún no tienes favoritos.</li>
+</ul>

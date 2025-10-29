@@ -1,0 +1,68 @@
+<div class="recipe-detail" *ngIf="recipe; else notFound">
+  <div class="recipe-header">
+    <button mat-button routerLink="/recetas">
+      <mat-icon>arrow_back</mat-icon> Volver
+    </button>
+    <button mat-icon-button (click)="toggleFavorite()" [color]="isFavorite() ? 'warn' : 'basic'">
+      <mat-icon>{{ isFavorite() ? 'favorite' : 'favorite_border' }}</mat-icon>
+    </button>
+  </div>
+
+  <mat-card class="recipe-main-card">
+    <mat-card-header>
+      <mat-card-title>{{ recipe.titulo }}</mat-card-title>
+    </mat-card-header>
+
+    <div class="recipe-photo" *ngIf="recipe.foto">
+      <img [src]="recipe.foto" [alt]="recipe.titulo" />
+    </div>
+
+    <mat-card-content>
+      <div class="recipe-meta">
+        <mat-chip>
+          <mat-icon>schedule</mat-icon>
+          {{ recipe.tiempo_preparacion }} minutos
+        </mat-chip>
+      </div>
+
+      <div class="recipe-description">
+        <h3>Descripción</h3>
+        <p>{{ recipe.descripcion }}</p>
+      </div>
+
+      <div class="recipe-ingredients" *ngIf="ingredientes.length > 0">
+        <h3>Ingredientes</h3>
+        <mat-list>
+          <mat-list-item *ngFor="let ing of ingredientes">
+            <span matListItemTitle>{{ ing.ingrediente?.nombre || 'Ingrediente' }}</span>
+            <span matListItemLine>
+              {{ ing.cantidad }} {{ ing.unidad?.abreviacion || ing.unidad?.nombre || '' }}
+            </span>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <div class="recipe-nutrition" *ngIf="recipe.informacion_nutricional">
+        <h3>Información Nutricional</h3>
+        <div class="nutrition-grid">
+          <div *ngIf="recipe.informacion_nutricional.calorias">
+            <strong>Calorías:</strong> {{ recipe.informacion_nutricional.calorias }} kcal
+          </div>
+          <div *ngIf="recipe.informacion_nutricional.proteinas">
+            <strong>Proteínas:</strong> {{ recipe.informacion_nutricional.proteinas }}g
+          </div>
+          <div *ngIf="recipe.informacion_nutricional.carbohidratos">
+            <strong>Carbohidratos:</strong> {{ recipe.informacion_nutricional.carbohidratos }}g
+          </div>
+          <div *ngIf="recipe.informacion_nutricional.grasas">
+            <strong>Grasas:</strong> {{ recipe.informacion_nutricional.grasas }}g
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #notFound>
+  <p>Receta no encontrada</p>
+</ng-template>

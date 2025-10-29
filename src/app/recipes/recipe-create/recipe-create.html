@@ -1,0 +1,73 @@
+<div class="recipe-create">
+  <h2>Nueva Receta</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="titulo" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion" rows="4"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Tiempo de preparación (minutos)</mat-label>
+      <input matInput type="number" formControlName="tiempo_preparacion" min="1" />
+    </mat-form-field>
+
+    <div class="photo-upload">
+      <label>
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;" />
+        <button mat-raised-button type="button" color="primary">
+          <mat-icon>photo_camera</mat-icon> Agregar Foto
+        </button>
+      </label>
+
+      <div class="photo-preview" *ngIf="fotoPreview">
+        <img [src]="fotoPreview" alt="Preview de la receta" />
+        <button mat-icon-button type="button" (click)="fotoPreview = undefined; form.patchValue({foto: ''})" color="warn">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="ingredientes-section">
+      <div class="ingredientes-header">
+        <h3>Ingredientes</h3>
+        <button mat-raised-button type="button" color="primary" (click)="addIngrediente()">
+          <mat-icon>add</mat-icon> Agregar Ingrediente
+        </button>
+      </div>
+
+      <div formArrayName="ingredientes" class="ingredientes-list">
+        <div *ngFor="let ing of ingredientesArray.controls; let i = index" [formGroupName]="i" class="ingrediente-item">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del ingrediente</mat-label>
+            <input matInput formControlName="nombre" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" formControlName="cantidad" step="0.1" min="0.1" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Unidad</mat-label>
+            <input matInput formControlName="unidad" placeholder="ej: tazas, gramos, ml" />
+          </mat-form-field>
+
+          <button mat-icon-button type="button" (click)="removeIngrediente(i)" color="warn" *ngIf="ingredientesArray.length > 1">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" type="submit">Crear Receta</button>
+      <button mat-button type="button" routerLink="/recetas">Cancelar</button>
+    </div>
+  </form>
+</div>

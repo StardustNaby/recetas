@@ -1,0 +1,52 @@
+<div class="publication-create">
+  <h2>Nueva Publicación</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-radio-group [(ngModel)]="tipoPublicacion" [ngModelOptions]="{standalone: true}" (change)="onTipoChange($event.value)">
+      <mat-radio-button value="opinion">Publicación de Opinión</mat-radio-button>
+      <mat-radio-button value="receta_referenciada">Referenciar una Receta</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="outline" class="field" *ngIf="tipoPublicacion === 'receta_referenciada'">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="titulo" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field" *ngIf="tipoPublicacion === 'receta_referenciada'">
+      <mat-label>Receta</mat-label>
+      <mat-select formControlName="id_receta_referenciada">
+        <mat-option *ngFor="let receta of recetas" [value]="receta.id_receta">
+          {{ receta.titulo }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Contenido</mat-label>
+      <textarea matInput formControlName="contenido" rows="6"></textarea>
+    </mat-form-field>
+
+    <div class="photo-upload">
+      <label>
+        <input type="file" accept="image/*" multiple (change)="onFileSelected($event)" style="display: none;" />
+        <button mat-raised-button type="button" color="primary">
+          <mat-icon>photo_camera</mat-icon> Agregar Fotos
+        </button>
+      </label>
+
+      <div class="photos-preview" *ngIf="fotos.length > 0">
+        <div class="photo-item" *ngFor="let foto of fotos; let i = index">
+          <img [src]="foto" [alt]="'Foto ' + (i + 1)" />
+          <button mat-icon-button type="button" (click)="removePhoto(i)" color="warn">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" type="submit">Publicar</button>
+      <button mat-button type="button" routerLink="/recetas">Cancelar</button>
+    </div>
+  </form>
+</div>

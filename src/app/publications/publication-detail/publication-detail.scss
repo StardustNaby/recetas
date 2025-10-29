@@ -1,0 +1,106 @@
+.publication-detail {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+
+  .publication-header {
+    margin-bottom: 2rem;
+  }
+
+  .publication-main-card {
+    margin-bottom: 2rem;
+
+    .publication-photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+
+      img {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+    }
+
+    .publication-content {
+      margin: 1rem 0;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .publication-meta {
+      margin-top: 1rem;
+
+      .publication-type {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 500;
+
+        &.type-receta_referenciada {
+          background-color: #e8f5e9;
+          color: #4caf50;
+        }
+
+        &.type-opinion {
+          background-color: #fff3e0;
+          color: #ff9800;
+        }
+      }
+    }
+
+    .vote-section {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+
+      .vote-count {
+        margin-right: 1rem;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .comments-section {
+    .comment-form {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+
+      .comment-input {
+        flex: 1;
+      }
+    }
+
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .comment-item {
+        padding: 1rem;
+        background: #fafafa;
+        border-radius: 8px;
+
+        .comment-content {
+          margin: 0 0 0.5rem 0;
+        }
+
+        .comment-date {
+          font-size: 0.875rem;
+          color: #666;
+        }
+      }
+    }
+
+    .no-comments {
+      text-align: center;
+      color: #999;
+      padding: 2rem;
+    }
+  }
+}

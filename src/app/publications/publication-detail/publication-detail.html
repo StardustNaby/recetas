@@ -1,0 +1,83 @@
+<div class="publication-detail" *ngIf="publication; else notFound">
+  <div class="publication-header">
+    <button mat-button routerLink="/recetas">
+      <mat-icon>arrow_back</mat-icon> Volver
+    </button>
+  </div>
+
+  <mat-card class="publication-main-card">
+    <mat-card-header>
+      <mat-card-title *ngIf="publication.titulo">{{ publication.titulo }}</mat-card-title>
+    </mat-card-header>
+
+    <div class="publication-photos" *ngIf="publication.fotos && publication.fotos.length > 0">
+      <img *ngFor="let foto of publication.fotos" [src]="foto" [alt]="publication.titulo || 'Publicación'" />
+    </div>
+
+    <mat-card-content>
+      <p class="publication-content">{{ publication.contenido }}</p>
+
+      <div class="publication-meta">
+        <span class="publication-type" [class]="'type-' + publication.tipo">
+          {{ publication.tipo === 'receta_referenciada' ? 'Referencia a Receta' : 'Opinión' }}
+        </span>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="vote-section">
+      <button
+        mat-icon-button
+        [color]="userVote?.tipo_voto === 'UPVOTE' ? 'primary' : 'basic'"
+        (click)="vote('UPVOTE')"
+        [attr.aria-label]="'Upvote'"
+      >
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+      <span class="vote-count">{{ votos.upvotes }}</span>
+
+      <button
+        mat-icon-button
+        [color]="userVote?.tipo_voto === 'DOWNVOTE' ? 'warn' : 'basic'"
+        (click)="vote('DOWNVOTE')"
+        [attr.aria-label]="'Downvote'"
+      >
+        <mat-icon>thumb_down</mat-icon>
+      </button>
+      <span class="vote-count">{{ votos.downvotes }}</span>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Sección de comentarios -->
+  <mat-card class="comments-section">
+    <mat-card-header>
+      <mat-card-title>Comentarios ({{ comentarios.length }})</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="commentForm" (ngSubmit)="addComentario()" class="comment-form">
+        <mat-form-field appearance="outline" class="comment-input">
+          <mat-label>Escribe un comentario</mat-label>
+          <textarea matInput formControlName="contenido" rows="3"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">
+          Comentar
+        </button>
+      </form>
+
+      <div class="comments-list" *ngIf="comentarios.length > 0; else noComments">
+        <div *ngFor="let comentario of comentarios" class="comment-item">
+          <p class="comment-content">{{ comentario.contenido }}</p>
+          <span class="comment-date">{{ comentario.fecha_creacion | date:'short' }}</span>
+        </div>
+      </div>
+
+      <ng-template #noComments>
+        <p class="no-comments">No hay comentarios aún. Sé el primero en comentar!</p>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #notFound>
+  <p>Publicación no encontrada</p>
+</ng-template>

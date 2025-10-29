@@ -1,0 +1,55 @@
+.publication-list {
+  padding: 2rem;
+
+  h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .publication-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .publication-card {
+    display: flex;
+    flex-direction: column;
+
+    .publication-photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 0.5rem;
+      margin: 1rem 0;
+
+      img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+    }
+
+    .publication-meta {
+      margin-top: 1rem;
+
+      .publication-type {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 500;
+
+        &.type-receta_referenciada {
+          background-color: #e8f5e9;
+          color: #4caf50;
+        }
+
+        &.type-opinion {
+          background-color: #fff3e0;
+          color: #ff9800;
+        }
+      }
+    }
+  }
+}

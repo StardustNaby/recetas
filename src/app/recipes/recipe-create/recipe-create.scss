@@ -1,0 +1,94 @@
+.recipe-create {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: 2rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .field {
+      width: 100%;
+    }
+
+    .photo-upload {
+      margin: 1rem 0;
+
+      .photo-preview {
+        position: relative;
+        margin-top: 1rem;
+        display: inline-block;
+
+        img {
+          max-width: 300px;
+          max-height: 300px;
+          border-radius: 8px;
+          object-fit: cover;
+        }
+
+        button {
+          position: absolute;
+          top: 0.5rem;
+          right: 0.5rem;
+          background: rgba(255, 255, 255, 0.9);
+        }
+      }
+    }
+
+    .ingredientes-section {
+      margin: 2rem 0;
+
+      .ingredientes-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        h3 {
+          margin: 0;
+          font-size: 1.25rem;
+        }
+      }
+
+      .ingredientes-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .ingrediente-item {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr auto;
+          gap: 1rem;
+          align-items: start;
+          padding: 1rem;
+          background: #fafafa;
+          border-radius: 8px;
+
+          mat-form-field {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .recipe-create {
+    form .ingredientes-section .ingredientes-list .ingrediente-item {
+      grid-template-columns: 1fr;
+    }
+  }
+}

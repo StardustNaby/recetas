@@ -1,0 +1,38 @@
+<div class="recipe-list">
+  <div class="header-section">
+    <h2>Recetas</h2>
+    <button mat-raised-button color="primary" routerLink="/recetas/nueva">
+      <mat-icon>add</mat-icon> Nueva Receta
+    </button>
+  </div>
+
+  <div class="recipe-grid" *ngIf="recipes.length > 0; else noRecipes">
+    <mat-card *ngFor="let recipe of recipes" class="recipe-card">
+      <mat-card-header>
+        <mat-card-title>{{ recipe.titulo }}</mat-card-title>
+      </mat-card-header>
+
+      <img mat-card-image [src]="recipe.foto || '/assets/placeholder-recipe.jpg'" [alt]="recipe.titulo" />
+
+      <mat-card-content>
+        <p>{{ recipe.descripcion }}</p>
+        <div class="recipe-meta">
+          <span><mat-icon>schedule</mat-icon> {{ recipe.tiempo_preparacion }} min</span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="viewRecipe(recipe.id_receta)">
+          Ver receta
+        </button>
+        <button mat-icon-button (click)="toggleFavorite(recipe.id_receta)" [color]="isFavorite(recipe.id_receta) ? 'warn' : 'basic'">
+          <mat-icon>{{ isFavorite(recipe.id_receta) ? 'favorite' : 'favorite_border' }}</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <ng-template #noRecipes>
+    <p>No hay recetas disponibles.</p>
+  </ng-template>
+</div>
