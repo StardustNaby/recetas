@@ -8,8 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Publications } from '../../core/services/publications';
+import { Recipes } from '../../core/services/recipes';
 import { Auth } from '../../core/services/auth';
 import { Publicacion } from '../../core/models/publicacion.model';
+import { Receta } from '../../core/models/receta.model';
 import { Comentario } from '../../core/models/comentario.model';
 import { Voto } from '../../core/models/voto.model';
 
@@ -30,6 +32,7 @@ import { Voto } from '../../core/models/voto.model';
 })
 export class PublicationDetail implements OnInit {
   publication: Publicacion | undefined;
+  referencedRecipe: Receta | undefined;
   comentarios: Comentario[] = [];
   votos: { upvotes: number; downvotes: number } = { upvotes: 0, downvotes: 0 };
   userVote: Voto | null = null;
@@ -40,6 +43,7 @@ export class PublicationDetail implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly publicationsService: Publications,
+    private readonly recipesService: Recipes,
     private readonly auth: Auth,
     private readonly formBuilder: FormBuilder
   ) {
@@ -53,6 +57,11 @@ export class PublicationDetail implements OnInit {
     if (id) {
       this.publication = this.publicationsService.getById(id);
       if (this.publication) {
+        // Obtener receta referenciada si existe
+        if (this.publication.id_receta_referenciada) {
+          this.referencedRecipe = this.recipesService.getById(this.publication.id_receta_referenciada);
+        }
+
         this.comentarios = this.publicationsService.getComentarios(id);
         this.votos = this.publicationsService.getVoteCount(id);
 
@@ -65,6 +74,20 @@ export class PublicationDetail implements OnInit {
         this.router.navigate(['/recetas']);
       }
     }
+  }
+
+  getRecipeImagePath(): string | undefined {
+    if (!this.referencedRecipe) return undefined;
+
+    const titulo = this.referencedRecipe.titulo.toLowerCase();
+    if (titulo.includes('pasta')) {
+      return '/assets/images/Pasta.jpg';
+    } else if (titulo.includes('ensalada') || titulo.includes('césar') || titulo.includes('cesar')) {
+      return '/assets/images/Ensalada.jpg';
+    }
+
+    // Si la receta tiene foto guardada, usarla
+    return this.referencedRecipe.foto;
   }
 
   vote(tipo: 'UPVOTE' | 'DOWNVOTE'): void {

@@ -1,0 +1,66 @@
+.favorites-list {
+  padding: 2rem;
+
+  h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .favorite-card {
+    display: flex;
+    flex-direction: column;
+
+    img {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .recipe-meta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      color: #666;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+
+    .publication-meta {
+      margin-top: 1rem;
+
+      .publication-type {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 500;
+
+        &.type-receta_referenciada {
+          background-color: #e8f5e9;
+          color: #4caf50;
+        }
+
+        &.type-opinion {
+          background-color: #fff3e0;
+          color: #ff9800;
+        }
+      }
+    }
+  }
+
+  .no-favorites {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #666;
+    font-size: 1.1rem;
+  }
+}

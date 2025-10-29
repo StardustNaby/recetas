@@ -1,5 +1,73 @@
-<h2>Favoritos</h2>
-<ul>
-  <li *ngFor="let id of items">Receta/Publicación ID: {{ id }}</li>
-  <li *ngIf="items.length === 0">Aún no tienes favoritos.</li>
-</ul>
+<div class="favorites-list">
+  <h2>Mis Favoritos</h2>
+
+  <div class="favorites-grid" *ngIf="favorites.length > 0; else noFavorites">
+    <ng-container *ngFor="let item of favorites">
+      <!-- Recetas favoritas -->
+      <mat-card *ngIf="item.type === 'receta'" class="favorite-card">
+        <mat-card-header>
+          <mat-card-title>{{ getRecipe(item)?.titulo }}</mat-card-title>
+        </mat-card-header>
+
+        <img
+          mat-card-image
+          *ngIf="getRecipe(item)"
+          [src]="getRecipeImagePath(getRecipe(item)!) || '/assets/images/placeholder-recipe.jpg'"
+          [alt]="getRecipe(item)?.titulo"
+        />
+
+        <mat-card-content>
+          <p>{{ getRecipe(item)?.descripcion }}</p>
+          <div class="recipe-meta">
+            <span><mat-icon>schedule</mat-icon> {{ getRecipe(item)?.tiempo_preparacion }} min</span>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="viewItem(item)">
+            Ver Receta
+          </button>
+          <button mat-icon-button (click)="removeFavorite(item.id)" color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+      <!-- Publicaciones favoritas -->
+      <mat-card *ngIf="item.type === 'publicacion'" class="favorite-card">
+        <mat-card-header>
+          <mat-card-title>{{ getPublication(item)?.titulo || 'Publicación' }}</mat-card-title>
+        </mat-card-header>
+
+        <img
+          mat-card-image
+          *ngIf="getPublication(item) && getPublicationImagePath(getPublication(item)!)"
+          [src]="getPublicationImagePath(getPublication(item)!)"
+          [alt]="getPublication(item)?.titulo || 'Publicación'"
+        />
+
+        <mat-card-content>
+          <p>{{ getPublication(item)?.contenido }}</p>
+          <div class="publication-meta" *ngIf="getPublication(item)">
+            <span class="publication-type" [class]="'type-' + getPublication(item)!.tipo">
+              {{ getPublication(item)!.tipo === 'receta_referenciada' ? 'Referencia a Receta' : 'Opinión' }}
+            </span>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="viewItem(item)">
+            Ver Publicación
+          </button>
+          <button mat-icon-button (click)="removeFavorite(item.id)" color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+  </div>
+
+  <ng-template #noFavorites>
+    <p class="no-favorites">Aún no tienes favoritos. ¡Explora recetas y publicaciones para guardar tus favoritas!</p>
+  </ng-template>
+</div>

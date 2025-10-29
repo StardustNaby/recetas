@@ -10,7 +10,13 @@
       <mat-card-title *ngIf="publication.titulo">{{ publication.titulo }}</mat-card-title>
     </mat-card-header>
 
-    <div class="publication-photos" *ngIf="publication.fotos && publication.fotos.length > 0">
+    <!-- Mostrar foto de receta referenciada si existe -->
+    <div class="publication-photos" *ngIf="publication.tipo === 'receta_referenciada' && getRecipeImagePath()">
+      <img [src]="getRecipeImagePath()" [alt]="referencedRecipe?.titulo || 'Receta'" />
+    </div>
+
+    <!-- Mostrar fotos de la publicación si no hay receta referenciada -->
+    <div class="publication-photos" *ngIf="publication.fotos && publication.fotos.length > 0 && publication.tipo !== 'receta_referenciada'">
       <img *ngFor="let foto of publication.fotos" [src]="foto" [alt]="publication.titulo || 'Publicación'" />
     </div>
 
